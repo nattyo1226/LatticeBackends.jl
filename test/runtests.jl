@@ -1,6 +1,10 @@
 using LatticeOperator
 using Test
 
+using LatticeGeometry
+using LatticeModel
+using SparseArrays
+
 @testset "LatticeOperator.jl" begin
-    # Write your tests here.
+    include("matrix.jl")
 end
