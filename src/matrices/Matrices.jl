@@ -1,7 +1,7 @@
-module Matrix
+module Matrices
 
-using LatticeGeometry
-using LatticeOperator
+using LatticeSpaces
+using LatticeOperators
 using LinearAlgebra
 
 include("common.jl")

@@ -1,9 +1,10 @@
-using LatticeBackend
+using LatticeBackends
 using Test
 
-using LatticeGeometry
-using LatticeOperator
+using LatticeSpaces
+using LatticeOperators
+using LinearAlgebra
 
-@testset "LatticeBackend.jl" begin
-    include("matrix.jl")
+@testset "LatticeBackends.jl" begin
+    include("matrices.jl")
 end

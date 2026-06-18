@@ -1,17 +1,17 @@
 function build_matrix(
-    ::Type{T},
-    num_sites::Int,
-    ids::Vector{Int},
-    matrices::Vector{<:AbstractMatrix},
-) where {T<:Number}
+    ::Type{N},
+    space::Space{T},
+    ids::AbstractVector{<:AbstractIndex{T}},
+    matrices::AbstractVector{<:AbstractMatrix},
+) where {N<:Number,T<:AbstractSystemTag}
     if length(ids) != length(matrices)
         throw(ArgumentError("Length of ids and matrices must be the same"))
     end
 
-    matrix_result = one(T)
-    identity_matrix = build_matrix(T, Identity())
+    matrix_result = one(N)
+    identity_matrix = build_matrix(N, Identity{T}())
 
-    for id in 1:num_sites
+    for id in indices(space)
         if id in ids
             matrix = matrices[findfirst(x -> x == id, ids)]
             matrix_result = kron(matrix_result, matrix)
@@ -24,10 +24,10 @@ function build_matrix(
 end
 
 function build_matrix(
-    ::Type{T},
-    num_sites::Int,
-    id::Int,
+    ::Type{N},
+    space::Space{T},
+    id::AbstractIndex{T},
     matrix::AbstractMatrix,
-) where T<:Number
-    return build_matrix(T, num_sites, [id], [matrix])
+) where {N<:Number,T<:AbstractSystemTag}
+    return build_matrix(N, space, [id], [matrix])
 end
