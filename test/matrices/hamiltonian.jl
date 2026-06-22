@@ -4,10 +4,7 @@ function test_tfi()
 
     space = Space(
         SpinHalfSpace(),
-        Hypercubic(
-            (2, 2),
-            OpenBoundary(2),
-        ),
+        Hypercubic((2, 2), OpenBoundary),
     )
     model = TFIHamiltonian(space, j, h)
 
@@ -38,10 +35,7 @@ function test_hubbard()
 
     space = Space(
         SpinfulFermionSpace(),
-        Hypercubic(
-            (2,),
-            OpenBoundary(1),
-        ),
+        Hypercubic(2, OpenBoundary),
     )
     model = HubbardHamiltonian(space, t, u)
 
