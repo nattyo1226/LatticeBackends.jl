@@ -55,9 +55,10 @@ end
 function build_matrix(::Type{N}, space::Space{T}, op::TensoredOperator{T}) where {N<:Number,T<:AbstractSystemTag}
     num_bits = nindices(space)
     dim_system = dim(space)
+    basis_sector = basis(space)
     mat = zeros(N, dim_system, dim_system)
 
-    for ket in 0:(dim_system-1)
+    for ket in basis_sector
         ket_reversed = reverse_bits(ket, num_bits)
         bra_reversed, coeff = apply(op, ket_reversed)
 
@@ -66,7 +67,11 @@ function build_matrix(::Type{N}, space::Space{T}, op::TensoredOperator{T}) where
         end
 
         bra = reverse_bits(bra_reversed, num_bits)
-        mat[bra+1, ket+1] += coeff
+        if bra in basis_sector
+            bra_sector = searchsortedfirst(basis_sector, bra)
+            ket_sector = searchsortedfirst(basis_sector, ket)
+            mat[bra_sector, ket_sector] += coeff
+        end
     end
 
     return mat
