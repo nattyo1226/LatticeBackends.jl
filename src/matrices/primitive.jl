@@ -49,3 +49,9 @@ function apply!(out::Vector{State}, id::Int, ::MajoranaY, state::State)
     push!(out, State(bits_new, coeff_new))
     return out
 end
+
+function apply!(out::Vector{State}, id::Int, ::MajoranaZ, state::State)
+    c = iszero((state.bits >> id) & 1) ? 1.0 : -1.0
+    push!(out, c * state)
+    return out
+end
