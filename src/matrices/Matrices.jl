@@ -10,5 +10,6 @@ export State, apply, apply!, dense_matrix, sparse_matrix
 include("primitive.jl")
 
 include("operator.jl")
+export reverse_bits
 
 end
